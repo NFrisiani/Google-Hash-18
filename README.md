@@ -1,2 +1,2 @@
 # Google-Hash-18
-Google Hash 2018 Repository
+Google Hash 2018 Repository.

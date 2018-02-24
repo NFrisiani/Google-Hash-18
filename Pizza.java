@@ -45,8 +45,8 @@ public class Pizza {
     System.out.println(solutions.size());
     for (int i = 0; i < solutions.size(); i++) {
       System.out.println(solutions.get(i)[0].x + " " +
-                          solutions.get(i)[0].y + " " +
                           solutions.get(i)[1].x + " " +
+                          solutions.get(i)[0].y + " " +
                           solutions.get(i)[1].y);
     }
   }

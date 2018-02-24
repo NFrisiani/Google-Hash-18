@@ -78,23 +78,23 @@ public class Pizza {
   public Point getNextPosition (Point coordinate, boolean valid)
   {
     int x2, y2;
-    int x1 = coordinate.x;
+    int x1 = x2 = coordinate.x;
     int y1 = y2 = coordinate.y;
     if (valid) {
       y2 = y1 + max;
-      if (y2+max > cols) {
+      if (y2 + max > columns) {
         x2 = x1 + 1;
         y2 = 0;
       }
     } else {
       y2 = y1 + 1;
-      if (y2+max > cols) {
+      if (y2 + max > columns) {
         x2 = x1 + 1;
         y2 = 0;
       }
     }
 
-    if (y2 > columns) {
+    if (x2 > rows) {
       return null;
     }
 

@@ -32,9 +32,9 @@ public class Pizza {
         newSolution[0] = coordinate;
         newSolution[1] = getBottomRight(coordinate);
         solutions.add(newSolution);
-        Point nextCoordinate = getNextPosition(coordinate, isValid);
-        if (nextCoordinate == null) {
-          finished = false;
+        coordinate = getNextPosition(coordinate, isValid);
+        if (coordinate == null) {
+          finished = true;
         }
       }
     }

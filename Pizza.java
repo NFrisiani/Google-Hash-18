@@ -52,7 +52,7 @@ public class Pizza {
   }
 
   public Point getBottomRight (Point coordinate) {
-    return new Point(coordinate.x, coordinate.y + max);
+    return new Point(coordinate.x, coordinate.y + max - 1);
   }
 
   public boolean isValid (Point coordinate) {

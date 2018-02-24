@@ -15,7 +15,11 @@ public class Pizza {
   public void printPizza () {
     for (int i = 0; i < this.rows; i++) {
       for (int j = 0; j < this.columns; j++) {
-        System.out.print(this.pizza[i][j]);
+        if (this.pizza[i][j]) {
+          System.out.print("T");
+        } else {
+          System.out.print("M");
+        }
       }
       System.out.println();
     }

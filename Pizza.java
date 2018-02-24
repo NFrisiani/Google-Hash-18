@@ -17,7 +17,7 @@ public class Pizza {
         pizza[i][j] = new Cell(i, j, givenPizza[i][j], false);
       }
     }
-    printPizza();
+    cut();
   }
 
   public void cut () {
@@ -26,12 +26,25 @@ public class Pizza {
     Point coordinate = new Point(0, 0);
 
     while (!finished) {
-      if (isValid(coordinate)) {
+      boolean isValid = isValid(coordinate);
+      if (isValid) {
         Point [] newSolution = new Point [2];
         newSolution[0] = coordinate;
         newSolution[1] = getBottomRight(coordinate);
         solutions.add(newSolution);
+        Point nextCoordinate = getNextPosition(coordinate, isValid);
+        if (nextCoordinate == null) {
+          finished = false;
+        }
       }
+    }
+
+    System.out.println(solutions.size());
+    for (int i = 0; i < solutions.size(); i++) {
+      System.out.println(solutions.get(i)[0].x + " " +
+                          solutions.get(i)[1].x + " " +
+                          solutions.get(i)[0].y + " " +
+                          solutions.get(i)[0].y);
     }
   }
 
@@ -61,9 +74,9 @@ public class Pizza {
 
   public Point getNextPosition (Point coordinate, boolean valid)
   {
-    int x1 = coordinate.x;
-    int y1 = coordinate.y;
     int x2, y2;
+    int x1 = coordinate.x;
+    int y1 = y2 = coordinate.y;
     if (valid) {
       x2 = x1 + max;
       if (x2 > rows) {

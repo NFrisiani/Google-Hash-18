@@ -33,8 +33,8 @@ public class Pizza {
         newSolution[1] = getBottomRight(coordinate);
         solutions.add(newSolution);
       }
-      coordinate = getNextPosition(coordinate, isValid);
       System.out.println(coordinate.x + " " + coordinate.y);
+      coordinate = getNextPosition(coordinate, isValid);
       if (coordinate == null) {
         finished = true;
       }
@@ -82,19 +82,19 @@ public class Pizza {
     int y1 = y2 = coordinate.y;
     if (valid) {
       y2 = y1 + max;
-      if (y2 + max > columns) {
+      if (y2 + max > columns - 1) {
         x2 = x1 + 1;
         y2 = 0;
       }
     } else {
       y2 = y1 + 1;
-      if (y2 + max > columns) {
+      if (y2 + max > columns - 1) {
         x2 = x1 + 1;
         y2 = 0;
       }
     }
 
-    if (x2 > rows) {
+    if (x2 > rows - 1) {
       return null;
     }
 

@@ -32,12 +32,15 @@ public class Pizza {
         newSolution[0] = coordinate;
         newSolution[1] = getBottomRight(coordinate);
         solutions.add(newSolution);
-        coordinate = getNextPosition(coordinate, isValid);
-        if (coordinate == null) {
-          finished = true;
-        }
+      }
+      coordinate = getNextPosition(coordinate, isValid);
+      System.out.println(coordinate.x + " " + coordinate.y);
+      if (coordinate == null) {
+        finished = true;
       }
     }
+
+    System.out.println("Finished");
 
     System.out.println(solutions.size());
     for (int i = 0; i < solutions.size(); i++) {

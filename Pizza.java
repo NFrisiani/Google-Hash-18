@@ -1,21 +1,27 @@
 public class Pizza {
   int rows, columns, min, max;
-  boolean [][] pizza;
+  Cell [][] pizza;
 
   public Pizza (int givenRows, int givenColumns, int givenMin,
                 int givenMax, boolean [][] givenPizza) {
-    this.rows = givenRows;
-    this.columns = givenColumns;
-    this.min = givenMin;
-    this.max = givenMax;
-    this.pizza = givenPizza;
+    rows = givenRows;
+    columns = givenColumns;
+    min = givenMin;
+    max = givenMax;
+    pizza = new Cell[rows][columns];
+
+    for (int i = 0; i < rows; i++) {
+      for (int j = 0; j < columns; j++ ) {
+        pizza[i][j] = new Cell(i, j, givenPizza[i][j], false);
+      }
+    }
     printPizza();
   }
 
   public void printPizza () {
-    for (int i = 0; i < this.rows; i++) {
-      for (int j = 0; j < this.columns; j++) {
-        if (this.pizza[i][j]) {
+    for (int i = 0; i < rows; i++) {
+      for (int j = 0; j < columns; j++) {
+        if (pizza[i][j].tomato) {
           System.out.print("T");
         } else {
           System.out.print("M");

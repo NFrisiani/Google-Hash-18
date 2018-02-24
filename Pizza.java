@@ -82,13 +82,13 @@ public class Pizza {
     int y1 = y2 = coordinate.y;
     if (valid) {
       y2 = y1 + max;
-      if (y2 + max > columns - 1) {
+      if (y2 + (max - 1) > columns - 1) {
         x2 = x1 + 1;
         y2 = 0;
       }
     } else {
       y2 = y1 + 1;
-      if (y2 + max > columns - 1) {
+      if (y2 + (max - 1) > columns - 1) {
         x2 = x1 + 1;
         y2 = 0;
       }

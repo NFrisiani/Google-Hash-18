@@ -33,7 +33,7 @@ public class Pizza {
         newSolution[1] = getBottomRight(coordinate);
         solutions.add(newSolution);
       }
-      System.out.println(coordinate.x + " " + coordinate.y);
+      // System.out.println(coordinate.x + " " + coordinate.y);
       coordinate = getNextPosition(coordinate, isValid);
       if (coordinate == null) {
         finished = true;

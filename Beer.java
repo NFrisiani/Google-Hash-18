@@ -14,21 +14,17 @@ public class Beer
 		max = sc.nextInt();
 		sc.nextLine();
 
-    boolean[][] pizza = new boolean[rows][columns];
+    boolean[][] grid = new boolean[rows][columns];
 
 		for (int i = 0; i < rows; i++) {
       String line = sc.next();
       for (int j = 0; j < columns; j++) {
-        pizza[i][j] = line.charAt(j) == 'T';
+        grid[i][j] = line.charAt(j) == 'T';
       }
       sc.nextLine();
     }
 
-    for (int i = 0; i < rows; i++) {
-      for (int j = 0; j < columns; j++) {
-        System.out.print(pizza[i][j]);
-      }
-      System.out.println();
-    }
+    // START
+    Pizza pizza = new Pizza(rows, columns, min, max, grid);
 	}
 }

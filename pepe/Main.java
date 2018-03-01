@@ -53,18 +53,11 @@ public class Main
     int availableRides = rides.size();
     // rides.sort(new RideComparator());
     Collections.sort(rides, new Comparator<Ride>() {
+      @Override
       public int compare(Ride o1, Ride o2) {
-        Integer x1 = (Integer)o1.timeStart;
-        Integer x2 = (Integer)o2.timeStart;
-        int sComp = x1.compareTo(x2);
-
-        if (sComp != 0) {
-          return sComp;
-        } else {
-          Integer y1 = (Integer)o1.timeFinish;
-          Integer y2 = (Integer)o2.timeFinish;
-          return y1.compareTo(y2);
-        }
+        Integer x1 = (Integer)o1.distance;
+        Integer x2 = (Integer)o2.distance;
+        return(x1.compareTo(x2));
       }
     });
 

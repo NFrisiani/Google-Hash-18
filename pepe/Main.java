@@ -1,5 +1,7 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Collections;
 
 public class Main
 {
@@ -49,7 +51,22 @@ public class Main
       solution.add(new ArrayList<Integer>());
     }
     int availableRides = rides.size();
-    rides.sort(new RideComparator());
+    // rides.sort(new RideComparator());
+    Collections.sort(rides, new Comparator<Ride>() {
+      public int compare(Ride o1, Ride o2) {
+        Integer x1 = (Integer)o1.timeStart;
+        Integer x2 = (Integer)o2.timeStart;
+        int sComp = x1.compareTo(x2);
+
+        if (sComp != 0) {
+          return sComp;
+        } else {
+          Integer y1 = (Integer)o1.timeFinish;
+          Integer y2 = (Integer)o2.timeFinish;
+          return y1.compareTo(y2);
+        }
+      }
+    });
 
     while (time < steps && availableRides != 0) {
       for (int i = 0; i < cars.length; i++) {

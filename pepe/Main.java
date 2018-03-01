@@ -47,8 +47,8 @@ public class Main
     for(int i = 0; i < cars.length; i++)  {
       solution.add(new ArrayList<Integer>());
     }
-
     int availableRides = rides.length;
+
     while (time < steps || availableRides == 0) {
       for (int i = 0; i < cars.length; i++) {
         if (cars[i].available) {

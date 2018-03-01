@@ -1,7 +1,7 @@
 public class Ride {
   Intersection start, finish;
   int timeStart, timeFinish, distance;
-  boolean available = false;
+  boolean available = true;
 
   public Ride (Intersection start, Intersection finish, int timeStart, int timeFinish) {
     this.start = start;

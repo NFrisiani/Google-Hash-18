@@ -53,7 +53,7 @@ public class Main
     while (time < steps || availableRides == 0) {
       for (int i = 0; i < cars.length; i++) {
         if (cars[i].available) {
-          int nextRide = nextRide(cars[i], rides);
+          int nextRide = nextLongestRide(cars[i], rides);
           if (nextRide > -1) {
             solution.get(i).add(nextRide);
             availableRides--;
@@ -75,7 +75,7 @@ public class Main
     }
   }
 
-  public int nextLongestRide (Car car, Ride[] rides) {
+  public static int nextLongestRide (Car car, Ride[] rides) {
     for (int i = 0; i < rides.length; i++) {
       if (rides[i].available && canFinishRide(car, rides[i])) {
         car.available = false;

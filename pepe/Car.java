@@ -21,4 +21,9 @@ public class Car {
   	updateCarPosition(r);
   	updateCarState(r);
   }
+
+  public String toString() {
+    return ("Car -> Available: " + available + ", nextTimeAvailable: " + nextTimeAvailable +
+                        ", position: " + position);
+  }
 }

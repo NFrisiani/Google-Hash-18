@@ -1,10 +1,9 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Main
 {
   static int time = 0;
-  static int steps;
-  static Ride[] rides;
 	public static void main(String [] args)
 	{
 		Scanner sc = new Scanner(System.in);
@@ -13,10 +12,10 @@ public class Main
 		int vehicles = sc.nextInt();
 		int numberOfRides = sc.nextInt();
     int bonus = sc.nextInt();
-		steps = sc.nextInt();
+		int steps = sc.nextInt();
 		sc.nextLine();
 
-    rides = new Ride[numberOfRides];
+    Ride[] rides = new Ride[numberOfRides];
 
     int a, b, x, y, s, t;
 		for (int i = 0; i < numberOfRides; i++) {
@@ -30,7 +29,6 @@ public class Main
       Intersection start = new Intersection(a, b);
       Intersection finish = new Intersection(x, y);
       rides[i] = new Ride(start, finish, s, t);
-      System.out.println(rides[i].distance);
 
       sc.nextLine();
     }
@@ -41,26 +39,48 @@ public class Main
     }
 
     // START
-    run();
-    System.out.println("Finish");
+    run(cars, rides, steps);
 	}
 
-  public static void run () {
-    while (time < steps) {
-      // Run
+  public static void run (Car[] cars, Ride[] rides, int steps) {
+    ArrayList<ArrayList<Integer>> solution = new ArrayList<ArrayList<Integer>>(cars.length);
+    for(int i = 0; i < cars.length; i++)  {
+      solution.add(new ArrayList<Integer>());
+    }
+
+    int availableRides = rides.length;
+    while (time < steps || availableRides == 0) {
+      for (int i = 0; i < cars.length; i++) {
+        if (cars[i].available) {
+          int nextRide = nextRide(cars[i], rides);
+          if (nextRide > -1) {
+            solution.get(i).add(nextRide);
+            availableRides--;
+          }
+        } else {
+          if (cars[i].nextTimeAvailable == time) {
+            cars[i].available = true;
+          }
+        }
+      }
+      time++;
+    }
+    for (ArrayList<Integer> sol : solution) {
+      System.out.println(sol.size() + " " + sol);
     }
   }
 
-  public static Ride nextRide (Car car) {
+  public static int nextRide (Car car, Ride[] rides) {
   	for (int i = 0; i < rides.length - 1; i++) {
   		if (rides[i].available && getOnTime(car.position, rides[i].start, rides[i].timeStart)) {
         car.available = false;
         car.nextTimeAvailable = rides[i].timeStart + rides[i].distance;
+        car.position = rides[i].finish;
         rides[i].available = false;
-  			return rides[i];
+  			return i;
   		}
   	}
-  	return null;
+  	return -1;
   }
 
   public static int getDistance (Intersection s, Intersection f) {

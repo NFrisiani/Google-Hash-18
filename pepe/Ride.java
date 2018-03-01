@@ -16,6 +16,6 @@ public class Ride {
   }
 
   public int getDistance (Intersection s, Intersection f) {
-    return ((Math.abs(s.x) - Math.abs(f.x)) + (Math.abs(s.y) - Math.abs(f.y)));
+    return Math.abs(((Math.abs(s.x) - Math.abs(f.x)) + (Math.abs(s.y) - Math.abs(f.y))));
   }
 }

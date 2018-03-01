@@ -2,8 +2,11 @@ import java.util.Scanner;
 
 public class Main
 {
+  static int time = 0;
+  static Ride[] rides;
 	public static void main(String [] args)
 	{
+    int time = 0;
 		Scanner sc = new Scanner(System.in);
 		int rows = sc.nextInt();
 		int columns = sc.nextInt();
@@ -13,7 +16,7 @@ public class Main
 		int steps = sc.nextInt();
 		sc.nextLine();
 
-    Ride[] rides = new Ride[numberOfRides];
+    rides = new Ride[numberOfRides];
 
     int a, b, x, y, s, t;
 		for (int i = 0; i < numberOfRides; i++) {
@@ -27,6 +30,7 @@ public class Main
       Intersection start = new Intersection(a, b);
       Intersection finish = new Intersection(x, y);
       rides[i] = new Ride(start, finish, s, t);
+      System.out.println(rides[i].distance);
 
       sc.nextLine();
     }
@@ -39,4 +43,22 @@ public class Main
     // START
     System.out.println("Finish");
 	}
+
+  public static Ride nextRide (Car car) {
+  	for (int i = 0; i < rides.length - 1; i++) {
+  		if (rides[i].available && getOnTime(car.position, rides[i].start, rides[i].timeStart)) {
+        car.available = false;
+  			return rides[i];
+  		}
+  	}
+  	return null;
+  }
+
+  public static int getDistance (Intersection s, Intersection f) {
+    return Math.abs((Math.abs(s.x) - Math.abs(f.x)) + (Math.abs(s.y) - Math.abs(f.y)));
+  }
+
+  public static boolean getOnTime (Intersection f, Intersection s, int startTime) {
+    return (getDistance(f, s) < (startTime - time));
+  }
 }

@@ -53,7 +53,7 @@ public class Main
     while (time < steps || availableRides == 0) {
       for (int i = 0; i < cars.length; i++) {
         if (cars[i].available) {
-          int nextRide = nextLongestRide(cars[i], rides);
+          int nextRide = closestRide(cars[i], rides);
           if (nextRide > -1) {
             solution.get(i).add(nextRide);
             availableRides--;
@@ -73,6 +73,20 @@ public class Main
       }
       System.out.println();
     }
+  }
+
+  public static int closestRide (Car car, Ride[] rides) {
+    Ride closest = rides[0];
+    for(int i = 1; i < rides.length - 1; i++){
+      if (rides[i].available && (getDistance(car.position, rides[i].start) < getDistance(car.position, closest.start))) {
+        closest = rides [i];
+      }
+    }
+
+    car.available = false;
+    car.nextTimeAvailable = closest.timeStart + closest.distance;
+    closest.available = false;
+    return closest.index;
   }
 
   public static int nextLongestRide (Car car, Ride[] rides) {

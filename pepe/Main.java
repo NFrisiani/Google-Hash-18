@@ -3,17 +3,17 @@ import java.util.Scanner;
 public class Main
 {
   static int time = 0;
+  static int steps;
   static Ride[] rides;
 	public static void main(String [] args)
 	{
-    int time = 0;
 		Scanner sc = new Scanner(System.in);
 		int rows = sc.nextInt();
 		int columns = sc.nextInt();
 		int vehicles = sc.nextInt();
 		int numberOfRides = sc.nextInt();
     int bonus = sc.nextInt();
-		int steps = sc.nextInt();
+		steps = sc.nextInt();
 		sc.nextLine();
 
     rides = new Ride[numberOfRides];
@@ -41,13 +41,22 @@ public class Main
     }
 
     // START
+    run();
     System.out.println("Finish");
 	}
+
+  public static void run () {
+    while (time < steps) {
+      // Run
+    }
+  }
 
   public static Ride nextRide (Car car) {
   	for (int i = 0; i < rides.length - 1; i++) {
   		if (rides[i].available && getOnTime(car.position, rides[i].start, rides[i].timeStart)) {
         car.available = false;
+        car.nextTimeAvailable = rides[i].timeStart + rides[i].distance;
+        rides[i].available = false;
   			return rides[i];
   		}
   	}

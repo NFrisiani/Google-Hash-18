@@ -16,7 +16,7 @@ public class Main
 		steps = sc.nextInt();
 		sc.nextLine();
 
-    Ride[] rides = new Ride[numberOfRides];
+    ArrayList<Ride> rides = new ArrayList<Ride>(numberOfRides);
 
     int a, b, x, y, s, t;
 		for (int i = 0; i < numberOfRides; i++) {
@@ -29,7 +29,7 @@ public class Main
 
       Intersection start = new Intersection(a, b);
       Intersection finish = new Intersection(x, y);
-      rides[i] = new Ride(start, finish, s, t, i);
+      rides.add(new Ride(start, finish, s, t, i));
 
       sc.nextLine();
     }
@@ -43,12 +43,13 @@ public class Main
     run(cars, rides);
 	}
 
-  public static void run (Car[] cars, Ride[] rides) {
+  public static void run (Car[] cars, ArrayList<Ride> rides) {
     ArrayList<ArrayList<Integer>> solution = new ArrayList<ArrayList<Integer>>(cars.length);
     for(int i = 0; i < cars.length; i++)  {
       solution.add(new ArrayList<Integer>());
     }
-    int availableRides = rides.length;
+    int availableRides = rides.size();
+    rides.sort(new RideComparator());
 
     while (time < steps && availableRides != 0) {
       for (int i = 0; i < cars.length; i++) {
@@ -75,7 +76,7 @@ public class Main
     }
   }
 
-  public static int closestRide (Car car, Ride[] rides) {
+  public static int closestRide (Car car, ArrayList<Ride> rides) {
     Ride closest = null;
     for (Ride r : rides) {
       if (r.timeStart < time) r.available = false;
@@ -85,9 +86,9 @@ public class Main
       }
     }
     if (closest != null) {
-      for(int i = 1; i < rides.length; i++){
-        if (rides[i].available && (getDistance(car.position, rides[i].start) < getDistance(car.position, closest.start))) {
-          closest = rides [i];
+      for(int i = 1; i < rides.size(); i++){
+        if (rides.get(i).available && (getDistance(car.position, rides.get(i).start) < getDistance(car.position, closest.start))) {
+          closest = rides.get(i);
         }
       }
     } else {
@@ -100,13 +101,13 @@ public class Main
     return closest.index;
   }
 
-  public static int nextLongestRide (Car car, Ride[] rides) {
-    for (int i = 0; i < rides.length; i++) {
-      if (rides[i].available && canFinishRide(car, rides[i])) {
+  public static int nextLongestRide (Car car, ArrayList<Ride> rides) {
+    for (int i = 0; i < rides.size(); i++) {
+      if (rides.get(i).available && canFinishRide(car, rides.get(i))) {
         car.available = false;
-        car.nextTimeAvailable = rides[i].timeStart + rides[i].distance;
-        car.position = rides[i].finish;
-        rides[i].available = false;
+        car.nextTimeAvailable = rides.get(i).timeStart + rides.get(i).distance;
+        car.position = rides.get(i).finish;
+        rides.get(i).available = false;
   			return i;
       }
     }
@@ -120,14 +121,14 @@ public class Main
             ((carToRide + rideDistance) < (steps - time));
   }
 
-  public static int nextRide (Car car, Ride[] rides) {
-  	for (int i = 0; i < rides.length; i++) {
-      System.out.println(getOnTime(car.position, rides[i].start, rides[i].timeStart));
-  		if (rides[i].available && getOnTime(car.position, rides[i].start, rides[i].timeStart)) {
+  public static int nextRide (Car car, ArrayList<Ride> rides) {
+  	for (int i = 0; i < rides.size(); i++) {
+      System.out.println(getOnTime(car.position, rides.get(i).start, rides.get(i).timeStart));
+  		if (rides.get(i).available && getOnTime(car.position, rides.get(i).start, rides.get(i).timeStart)) {
         car.available = false;
-        car.nextTimeAvailable = rides[i].timeStart + rides[i].distance;
-        car.position = rides[i].finish;
-        rides[i].available = false;
+        car.nextTimeAvailable = rides.get(i).timeStart + rides.get(i).distance;
+        car.position = rides.get(i).finish;
+        rides.get(i).available = false;
   			return i;
   		}
   	}

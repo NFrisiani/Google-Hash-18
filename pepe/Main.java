@@ -78,7 +78,7 @@ public class Main
   public static int closestRide (Car car, Ride[] rides) {
     Ride closest = null;
     for (Ride r : rides) {
-      if (r.startTime < time) r.available = false;
+      if (r.timeStart < time) r.available = false;
       if (r.available) {
         closest = r;
         break;

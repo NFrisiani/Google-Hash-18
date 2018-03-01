@@ -70,15 +70,14 @@ public class Main
 
     while (time < steps && availableRides != 0) {
       for (int i = 0; i < cars.length; i++) {
+        if (cars[i].nextTimeAvailable == time) {
+          cars[i].available = true;
+        }
         if (cars[i].available) {
           int nextRide = closestRide(cars[i], rides);
           if (nextRide > -1) {
             solution.get(i).add(nextRide);
             availableRides--;
-          }
-        } else {
-          if (cars[i].nextTimeAvailable == time) {
-            cars[i].available = true;
           }
         }
       }

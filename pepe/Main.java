@@ -31,6 +31,11 @@ public class Main
       sc.nextLine();
     }
 
+    Car[] cars = new Car[vehicles];
+    for (int i = 0; i < vehicles; i++) {
+      cars[i] = new Car();
+    }
+
     // START
     System.out.println("Finish");
 	}

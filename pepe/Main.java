@@ -76,11 +76,21 @@ public class Main
   }
 
   public static int closestRide (Car car, Ride[] rides) {
-    Ride closest = rides[0];
-    for(int i = 1; i < rides.length - 1; i++){
-      if (rides[i].available && (getDistance(car.position, rides[i].start) < getDistance(car.position, closest.start))) {
-        closest = rides [i];
+    Ride closest = null;
+    for (Ride r : rides) {
+      if (r.available) {
+        closest = r;
+        break;
       }
+    }
+    if (closest != null) {
+      for(int i = 1; i < rides.length; i++){
+        if (rides[i].available && (getDistance(car.position, rides[i].start) < getDistance(car.position, closest.start))) {
+          closest = rides [i];
+        }
+      }
+    } else {
+      return -1;
     }
 
     car.available = false;
@@ -111,6 +121,7 @@ public class Main
 
   public static int nextRide (Car car, Ride[] rides) {
   	for (int i = 0; i < rides.length; i++) {
+      System.out.println(getOnTime(car.position, rides[i].start, rides[i].timeStart));
   		if (rides[i].available && getOnTime(car.position, rides[i].start, rides[i].timeStart)) {
         car.available = false;
         car.nextTimeAvailable = rides[i].timeStart + rides[i].distance;
